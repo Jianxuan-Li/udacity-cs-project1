@@ -18,20 +18,14 @@ Print a message:
 "There are <count> different telephone numbers in the records."
 """
 
-h = {}
+tel_nums = set()
+
+for call in calls:
+    tel_nums.add(call[0])
+    tel_nums.add(call[1])
 
 for text in texts:
-    if text[0] not in h:
-        h[text[0]] = True
-    
-    if text[1] not in h:
-        h[text[1]] = True
-        
-for call in calls:
-    if call[0] not in h:
-        h[call[0]] = True
-        
-    if call[1] not in h:
-        h[text[1]] = True
-    
-print("There are {} different telephone numbers in the records.".format(len(h)))
+    tel_nums.add(text[0])
+    tel_nums.add(text[1])
+
+print("There are {} different telephone numbers in the records.".format(len(tel_nums)))

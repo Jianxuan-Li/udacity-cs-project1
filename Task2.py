@@ -20,17 +20,12 @@ Print a message:
 September 2016.".
 """
 
-longest_time = -1
-phone_number = None
-datetime = None
+phone_dict = {}
 
-for i in range(len(calls)):
-    if int(calls[i][3]) <= longest_time:
-        continue
-        
-    longest_time = int(calls[i][3])
-    phone_number = calls[i][0]
-    datetime = calls[i][2]
+for call in calls:
+    phone_dict[call[0]] = phone_dict.get(call[0], 0) + int(call[3])
+    phone_dict[call[1]] = phone_dict.get(call[1], 0) + int(call[3])
 
-
-print("{} spent the longest time, {} seconds, on the phone during {}".format(phone_number, longest_time, datetime))
+max_phone_num = max(phone_dict, key=lambda k: phone_dict[k])
+print("{} spent the longest time, {} seconds, on the phone during September 2016.".format(
+    max_phone_num, phone_dict[max_phone_num]))

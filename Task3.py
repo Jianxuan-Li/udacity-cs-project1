@@ -4,6 +4,7 @@ It's ok if you don't understand how to read files.
 """
 import csv
 import re
+import os
 
 with open('texts.csv', 'r') as f:
     reader = csv.reader(f)
@@ -46,56 +47,59 @@ to other fixed lines in Bangalore."
 The percentage should have 2 decimal digits
 """
 
+
 def is_from_Bangalore(number):
     # fixed line of Bangalore
     if re.search("\(080\)\d+", number):
         return True
     return False
 
+
 def get_code(number):
     # get the area code or prefix of called numbers
-    
+
     # Telemarketers
     if re.search("140\d+", number):
         return "140"
-    
+
     # area code of fixed line
     test = re.findall("(\(0\d+\))\d+", number)
     if len(test) > 0:
         return test[0]
-    
+
     # prefix of mobile
     test = re.findall("([7|8|9]\d{3})\d+\s\d+", number)
     if len(test) > 0:
         return test[0]
 
     return False
-    
+
+
 def find_all_codes():
-    h = {}
+    all_code = {}
+    from_Bangalore = 0
     same_place = 0
-    
+
     for call in calls:
         if not is_from_Bangalore(call[0]):
             continue
-        
-        c = get_code(call[1])
-        if c:
-            if c not in h:
-                h[c] = 1
-            else:
-                h[c] += 1
-                
+
+        from_Bangalore += 1
+
+        code = get_code(call[1])
+        if code:
+            all_code[code] = all_code.get(code, 1) + 1
+
         if is_from_Bangalore(call[1]):
             same_place += 1
-                
-    codes = list(h.keys())
+
+    codes = list(all_code.keys())
     codes.sort()
     print("The numbers called by people in Bangalore have codes:")
-    print(codes)
-    
-    percentage = round((same_place / len(calls)) * 100, 2)
-    
+    print(*codes, sep=os.linesep)
+
+    percentage = round((same_place / from_Bangalore) * 100, 2)
     print("{} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.".format(percentage))
+
 
 find_all_codes()

@@ -1,5 +1,18 @@
-Task0: O(1)
-Task1: O(n)
-Task2: O(n)
-Task3: O(n log n)
-Task4: O(n log n)
+Task0: Worst-case time complexity is O(1)
+We access values in list by index here, so the time complexity is O(1)
+
+Task1: Worst-case time complexity is O(n)
+We have two list to traverse here, the time complexity is O(n) + O(n). 
+But n is constant here, so the worst-case time complexity can be simplify as O(n)
+
+Task2: Worst-case time complexity is O(n)
+In this case the time complexity of `max()` function is O(n), and we traverse the input list by once (also O(n)).
+So the time complexity can be simplify as O(n)
+
+Task3: Worst-case time complexity is O(n log n)
+We traverse input list for once, which the time complexity is O(n). But the worst time complexity of sort() function
+is O(n log n), so the worst time complexity of this case can be simplify as O(n log n)
+
+Task4: Worst-case time complexity is O(n log n)
+We have three loops in this case, but the input list should be constant, so time complexity of them is O(n). But we use 
+sort() function in the last, which the worst time complexity is O(n log n), so the worst time complexity of this case is O(n log n) too.
